@@ -1,0 +1,10 @@
+cvxpy
+numpy
+openai
+pandas
+pillow
+scikit-learn
+scipy
+torch
+tqdm
+transformers

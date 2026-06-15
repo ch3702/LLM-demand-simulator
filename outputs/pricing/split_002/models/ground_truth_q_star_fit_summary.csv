@@ -1,0 +1,2 @@
+model,selected_exposure_n,fit_objective,fit_objective_value,status,real_alpha_mass,dummy_alpha_mass,logit_cal_intercept,logit_cal_slope
+ground_truth_q_star,250,truncated,12778.976513518712,approximate: Positive directional derivative for linesearch,0.9999999980463752,1.953625100551765e-09,-4.575321331640717,0.12271381520310733

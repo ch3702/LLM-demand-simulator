@@ -1,0 +1,2 @@
+model,selected_exposure_n,fit_objective,fit_objective_value,status,real_alpha_mass,dummy_alpha_mass,logit_cal_intercept,logit_cal_slope
+ground_truth_q_star,250,truncated,12553.524351251686,Optimization terminated successfully,0.9303280577305167,0.06967194226948333,-4.775645191488863,0.08979509700889524

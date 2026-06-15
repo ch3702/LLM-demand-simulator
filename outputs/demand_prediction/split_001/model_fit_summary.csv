@@ -1,0 +1,5 @@
+split,model,selected_exposure_n,fit_objective_value,fit_objective,real_alpha_mass,dummy_alpha_mass,logit_cal_intercept,logit_cal_slope,price_coefficient_scaled,train_loss,sigma
+1,llm-mix,250.0,13690.81595677436,truncated,0.025560392867613545,0.9744396071323865,,,,,
+1,llm-mix-cal,250.0,12741.62620027961,truncated,1.0,0.0,-4.61785084940272,0.11546962475960508,,,
+1,emb,200.0,12062.672727775427,truncated,0.9062105480348428,0.09378945196515702,,,2.2011772539222427,,
+1,gaussian,,,,,,,,0.22589630936246088,2.2550367162583935,2.307346546335522

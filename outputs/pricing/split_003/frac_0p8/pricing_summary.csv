@@ -1,0 +1,3 @@
+split,train_frac,n_train_rows,objective,n_products,mean_regret,median_regret,std_regret,mean_relative_performance,price_match_rate,mean_candidate_prices,selected_exposure_n
+3,0.8,2324,cvar_0.25,15,0.0033673041236867243,0.0,0.010724655097237974,0.999484327459703,0.8666666666666667,10.0,250
+3,0.8,2324,expected_revenue,15,0.11821636076986408,0.0,0.34236905635743586,0.997946546625619,0.8666666666666667,10.0,250

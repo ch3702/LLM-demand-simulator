@@ -1,0 +1,8 @@
+split,model,metric,value
+split_000_train,llm-mix,mae,1.4237672819510023
+split_000_train,llm-mix,rmse,1.8555794206659442
+split_000_train,llm-mix,zt_avg_nll,1.9316088882906652
+split_000_train,llm-mix,zt_avg_crps,0.986158306127592
+split_000_train,llm-mix,zt_pit_ks,0.3042237054729154
+split_000_train,llm-mix,zt_interval_score_0.9,9.410138248847927
+split_000_train,llm-mix,zt_interval_score_0.95,13.871255760368655

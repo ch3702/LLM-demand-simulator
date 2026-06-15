@@ -1,0 +1,2 @@
+model,selected_exposure_n,fit_objective,fit_objective_value,status,real_alpha_mass,dummy_alpha_mass,logit_cal_intercept,logit_cal_slope
+q_hat,100,naive,3563.0084389450217,optimal,0.9999999593165015,4.068349839289142e-08,-3.638328428095669,0.143566278937041

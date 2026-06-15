@@ -1,0 +1,8 @@
+split,model,metric,value
+split_003_train,gaussian,mae,1.3285655326704204
+split_003_train,gaussian,rmse,1.720921653073821
+split_003_train,gaussian,zt_avg_nll,1.8755628048284425
+split_003_train,gaussian,zt_avg_crps,1.1339080188246433
+split_003_train,gaussian,zt_pit_ks,0.3999236325895874
+split_003_train,gaussian,zt_interval_score_0.9,8.172735217011361
+split_003_train,gaussian,zt_interval_score_0.95,10.768132828429941

@@ -1,0 +1,8 @@
+split,model,metric,value
+split_005_test,emb,mae,1.457120479389919
+split_005_test,emb,rmse,1.939739937830061
+split_005_test,emb,zt_avg_nll,2.0153908898317705
+split_005_test,emb,zt_avg_crps,1.0285690858946213
+split_005_test,emb,zt_pit_ks,0.2993019469662688
+split_005_test,emb,zt_interval_score_0.9,10.41800219538968
+split_005_test,emb,zt_interval_score_0.95,16.015806805708
