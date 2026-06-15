@@ -1,4 +1,4 @@
-# LLM Demand Simulation Code
+# LLM-Powered Virtual Population for Demand Simulation and Pricing
 
 This repository contains the code for the paper:
 
