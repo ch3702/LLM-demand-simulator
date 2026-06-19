@@ -2,7 +2,7 @@
 
 This repository contains the code for the paper:
 
-Huang, Chengpiao and Wang, Kaizheng. (2026). LLM-powered virtual population for demand simulation and pricing.
+Huang, Chengpiao and Wang, Kaizheng. (2026). LLM-powered virtual population for demand simulation and pricing. [[arXiv](https://arxiv.org/abs/2606.16183)] [[SSRN](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6941578)]
 
 ## Structure
 
