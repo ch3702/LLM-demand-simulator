@@ -19,7 +19,7 @@ import pandas as pd  # noqa: PANDAS_OK — 레포 표준 데이터 파이프라�
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from demand_sim.config import DEFAULT_PRODUCTS_DIR, DEFAULT_QUERY_PLAN_DIR, DEFAULT_RESPONSES_DIR
-from demand_sim.data import load_probability_rows
+from demand_sim.data import load_plan, load_probability_rows
 
 KIMI_PRICE_PANEL = Path("/Users/robotjang/walkerhill_sim-KIMI/analysis/price_panel_prior.json")
 ACTUAL_2026 = {
@@ -147,7 +147,7 @@ def main() -> int:
     args = parser.parse_args()
 
     responses = load_probability_rows(args.responses)
-    plan = pd.read_pickle(args.plan)
+    plan = load_plan(args.plan)
     weights = plan[["persona_id", "article_id", "n_customers"]].drop_duplicates()
     frame = responses.merge(weights, on=["persona_id", "article_id"], how="left")
     report = {

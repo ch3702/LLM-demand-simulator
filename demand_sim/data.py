@@ -122,3 +122,33 @@ def load_persona_embeddings(path: Path, max_personas: int | None = None) -> tupl
         embeddings = embeddings.head(max_personas).copy()
     return embeddings[["persona_id"] + cols].copy(), embeddings["persona_id"].tolist(), cols
 
+
+
+PLAN_REQUIRED_COLUMNS = ("article_id", "persona_id", "price_sig", "prices_json", "prompt")
+
+
+class PlanFormatError(ValueError):
+    """LLM 시뮬 입력 플랜(.pkl/.json)이 기대 형식과 어긋날 때."""
+
+
+def load_plan(path: Path) -> pd.DataFrame:
+    """플랜 파일(.pkl 또는 .json)을 읽어 DataFrame으로 반환한다.
+
+    JSON은 객체 배열(orient=records)이며, 필수 컬럼을 검증한 뒤 반환한다.
+    """
+    if path.suffix == ".pkl":
+        frame = pd.read_pickle(path)
+    elif path.suffix == ".json":
+        try:
+            payload = json.loads(path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError as error:
+            raise PlanFormatError(f"플랜 JSON 이 올바르지 않습니다: {path.name}") from error
+        if not isinstance(payload, list) or not payload:
+            raise PlanFormatError(f"플랜 JSON 은 비어 있지 않은 객체 배열이어야 합니다: {path.name}")
+        frame = pd.DataFrame(payload)
+    else:
+        raise PlanFormatError(f"플랜은 .pkl 또는 .json 이어야 합니다: {path.name}")
+    missing = [column for column in PLAN_REQUIRED_COLUMNS if column not in frame.columns]
+    if missing:
+        raise PlanFormatError(f"플랜에 필요한 컬럼이 없습니다: {', '.join(missing)}")
+    return frame

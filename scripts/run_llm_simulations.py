@@ -11,6 +11,7 @@ import pandas as pd  # noqa: PANDAS_OK — 레포 표준 데이터 파이프라�
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from demand_sim.config import DEFAULT_IMAGES_DIR, DEFAULT_QUERY_PLAN_DIR, DEFAULT_RESPONSES_DIR
+from demand_sim.data import load_plan
 from demand_sim.llm import LLMConfig, run_simulation_async, run_simulation_sync
 
 DOTENV_PATH = Path(__file__).resolve().parents[1] / ".env"
@@ -37,7 +38,7 @@ def load_dotenv(path: Path) -> None:
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Run LLM purchase-probability simulations.")
-    parser.add_argument("--plan", type=Path, default=DEFAULT_QUERY_PLAN_DIR / "plan_top100_online.pkl")
+    parser.add_argument("--plan", type=Path, default=DEFAULT_QUERY_PLAN_DIR / "plan_top100_online.pkl", help="플랜 파일(.pkl 또는 .json)")
     parser.add_argument("--output", type=Path, default=DEFAULT_RESPONSES_DIR / "llm_responses_online_top100.csv")
     parser.add_argument("--images-dir", type=Path, default=DEFAULT_IMAGES_DIR)
     parser.add_argument(
@@ -85,7 +86,7 @@ def main() -> None:
     args = parse_args()
     base_url = resolve_base_url(args.base_url)
     api_key = resolve_api_key(args, base_url)
-    plan = pd.read_pickle(args.plan)
+    plan = load_plan(args.plan)
     cfg = LLMConfig(
         model=args.model,
         requests_per_minute=args.requests_per_minute,
