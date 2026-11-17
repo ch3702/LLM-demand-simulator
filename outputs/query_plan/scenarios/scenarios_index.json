@@ -1,0 +1,68 @@
+{
+ "source": "outputs/query_plan/plan_top5_hotel.json",
+ "scenarios": [
+  {
+   "scenario": "price_-10_promo_none",
+   "price_delta": -0.1,
+   "promo": "none",
+   "rows": 30,
+   "file": "outputs/query_plan/scenarios/price_-10_promo_none.json"
+  },
+  {
+   "scenario": "price_-10_promo_package",
+   "price_delta": -0.1,
+   "promo": "package",
+   "rows": 30,
+   "file": "outputs/query_plan/scenarios/price_-10_promo_package.json"
+  },
+  {
+   "scenario": "price_-10_promo_breakfast",
+   "price_delta": -0.1,
+   "promo": "breakfast",
+   "rows": 30,
+   "file": "outputs/query_plan/scenarios/price_-10_promo_breakfast.json"
+  },
+  {
+   "scenario": "price_+00_promo_none",
+   "price_delta": 0.0,
+   "promo": "none",
+   "rows": 30,
+   "file": "outputs/query_plan/scenarios/price_+00_promo_none.json"
+  },
+  {
+   "scenario": "price_+00_promo_package",
+   "price_delta": 0.0,
+   "promo": "package",
+   "rows": 30,
+   "file": "outputs/query_plan/scenarios/price_+00_promo_package.json"
+  },
+  {
+   "scenario": "price_+00_promo_breakfast",
+   "price_delta": 0.0,
+   "promo": "breakfast",
+   "rows": 30,
+   "file": "outputs/query_plan/scenarios/price_+00_promo_breakfast.json"
+  },
+  {
+   "scenario": "price_+10_promo_none",
+   "price_delta": 0.1,
+   "promo": "none",
+   "rows": 30,
+   "file": "outputs/query_plan/scenarios/price_+10_promo_none.json"
+  },
+  {
+   "scenario": "price_+10_promo_package",
+   "price_delta": 0.1,
+   "promo": "package",
+   "rows": 30,
+   "file": "outputs/query_plan/scenarios/price_+10_promo_package.json"
+  },
+  {
+   "scenario": "price_+10_promo_breakfast",
+   "price_delta": 0.1,
+   "promo": "breakfast",
+   "rows": 30,
+   "file": "outputs/query_plan/scenarios/price_+10_promo_breakfast.json"
+  }
+ ]
+}
