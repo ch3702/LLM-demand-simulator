@@ -26,14 +26,20 @@ SALE_WINDOWS = {
     "GHS-24W-01": {
         "start": date(2024, 12, 1), "end": date(2025, 3, 3), "confidence": "확정",
         "sources": "digitalchosun.dizzo.com(2024-12-03) · hotelrestaurant.co.kr idxno=14819 · NOL world",
+        "keywords": "마리떼, 콜라보, 운영기간, 네이버예약, 주중55000, 주말58000, 12월1일개장",
+        "note": "2024-12-01 개장·2025-03-03 종료(뉴스 교차확인) · 주중 5.5만/주말 5.8만 재확인",
     },
     "GHS-24W-02": {
         "start": date(2024, 11, 16), "end": date(2024, 12, 31), "confidence": "확정",
         "sources": "localnaeil 652188(2024-12-05) · 더 델리 네이버예약 출처(픽업 11/16~12/31) · 얼리버드 ~12/8 15%",
+        "keywords": "페스티브케이크, 얼리버드, 15할인, 픽업, 시크릿트리, 네이버예약, 텀블러",
+        "note": "픽업 11/16~12/31 · 5종(트리12만·루돌프11만 등) · 얼리버드 15% ~12/8",
     },
     "GHS-24S-01": {
         "start": date(2024, 5, 24), "end": date(2024, 9, 30), "confidence": "확정",
         "sources": "insight.co.kr 469121(2024-05-20) · hotelrestaurant.co.kr idxno=13775 · TableCheck 2024 플랜",
+        "keywords": "멕시칸스타일, 무제한드링크, 타코, 5월24일개장, 178000, 수영장뷰",
+        "note": "5/24~9/30 수~일 19~21:30(월화 휴무) · 성인 178.000원(무제한 음료 포함 뉴스 확인)",
     },
     "GHS-24S-02": {
         "start": date(2024, 6, 1), "end": date(2024, 8, 31), "confidence": "추정",
@@ -85,6 +91,10 @@ def fill_workbook(path: Path) -> list[tuple[str, str, str]]:
             spec = SALE_WINDOWS[pid]
             blog.cell(row, blog_headers["기간 창 시작(판매 시작일)"]).value = spec["start"]
             blog.cell(row, blog_headers["기간 창 끝(판매 종료 +30일)"]).value = collection_window(spec["end"])
+            if spec.get("keywords") and "자주 함께 나온 키워드" in blog_headers:
+                blog.cell(row, blog_headers["자주 함께 나온 키워드"]).value = spec["keywords"]
+            if spec.get("note") and "비고" in blog_headers:
+                blog.cell(row, blog_headers["비고"]).value = spec["note"]
             updated.append((str(pid), str(spec["start"]), str(collection_window(spec["end"]))))
         if len(updated) != len(SALE_WINDOWS):
             raise WindowError(f"C_블로그 창 채우기 불완료: {len(updated)}/{len(SALE_WINDOWS)}")

@@ -18,7 +18,7 @@ from fill_ghs_2024_windows import (  # noqa: E402
 )
 
 PRODUCT_HEADERS = ["상품ID", "호텔", "연도", "상품명", "판매 시작일", "판매 종료일", "확인"]
-BLOG_HEADERS = ["상품ID", "호텔", "기간 창 시작(판매 시작일)", "기간 창 끝(판매 종료 +30일)"]
+BLOG_HEADERS = ["상품ID", "호텔", "기간 창 시작(판매 시작일)", "기간 창 끝(판매 종료 +30일)", "자주 함께 나온 키워드", "비고"]
 
 
 def _build(path: Path) -> None:
