@@ -23,7 +23,7 @@ REGISTRY_PATHS = (
 JUDGMENT_TARGET = 30
 
 
-@dataclass(frozen=True)
+@dataclass(frozen=True, slots=True)
 class GapRow:
     product_id: str
     hotel: str
