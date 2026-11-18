@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# seasons_greeting-WH — 워커힐 부록 A(시트3·4) 일일 수집 명령
+# 매일 오전/저녁 수동 실행. API 키는 NAVER_CLIENT_ID / NAVER_CLIENT_SECRET 환경변수.
+# SKU 근거: walkerhill-simulation/sku-catalog-snapshot-v0.1.md
+set -euo pipefail
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+exec "$DIR/.venv/bin/python" "$DIR/scripts/fetch_naver_mentions.py" \
+  --registry "$DIR/data/walkerhill_survey/products_naver.csv" \
+  --out-dir "$DIR/data/walkerhill_survey" "$@"

@@ -16,6 +16,8 @@ DEFAULT_RESPONSES_DIR = DEFAULT_OUTPUT_DIR / "responses"
 DEFAULT_EMBEDDINGS_DIR = DEFAULT_OUTPUT_DIR / "embeddings"
 
 PRICE_SCALE = 590.0
+# Currency label surfaced in LLM query prompts ("Offered prices (...)"); "KRW" for the hotel workflow, "USD" for the original H&M run.
+PRICE_CURRENCY = "KRW"
 DEFAULT_TOP_N_PRODUCTS = 100
 DEFAULT_MAX_PERSONAS = 50
 DEFAULT_EXPOSURE_N = 200

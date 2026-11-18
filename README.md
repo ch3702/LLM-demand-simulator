@@ -146,3 +146,56 @@ python3 scripts/make_illustrative_use_case.py \
 ```
 
 Outputs are written under `outputs/illustrative use case/`. Demand-distribution figures are one PDF per price, with light-blue PMF bars and a blue interpolated curve. Pricing figures are one PDF per objective, with the optimal price highlighted in red.
+
+## Grand Hyatt Christmas Workflow (hotel adaptation)
+
+The same pipeline runs on Grand Hyatt Seoul Christmas SKUs and 2030 customer personas. Instead of Kaggle CSVs, edit two small input files and generate the contract outputs directly:
+
+- `data/hotel_skus.csv` — SKU master: `article_id` (numeric id, e.g. `1001` for TYPE-A1), `sku_code`, `prod_name`, `product_type_name` (category used for persona taste buckets), `colour_group_name`, `graphical_appearance_name`, `detail_desc`, `price_grid` (`|`-separated KRW test prices, 5+ per SKU recommended), `base_daily_demand` (proxy demand scale).
+- `data/hotel_personas.csv` — persona cells: `persona_id`, `age_bin`, `engagement_bin`, `price_tier`, `taste_bucket`, `n_customers`, `txn_q25/q75` (visits per month), `price_q25/q75` (typical spend in KRW), and `persona_context` (Korean persona description used in the LLM prompt).
+- `images/<article_id>.jpg` — official promo image per SKU (room view, ice rink night lighting, cake shots) for SigLIP product embeddings.
+
+Build the contract files, then run the rest of the pipeline with explicit paths:
+
+```bash
+python3 scripts/build_hotel_inputs.py
+python3 scripts/build_queries.py \
+  --top-n 5 \
+  --sales outputs/products/sales_top5_hotel.csv \
+  --product-info outputs/products/product_info_top5_hotel.csv \
+  --persona-prompts outputs/personas_hotel/persona_prompts.csv \
+  --output outputs/query_plan/plan_top5_hotel.pkl
+python3 scripts/build_product_embeddings.py --product-info outputs/products/product_info_top5_hotel.csv --allow-download
+python3 scripts/build_persona_embeddings.py --personas outputs/personas_hotel/persona_cells.csv --allow-download
+OPENAI_API_KEY=... python3 scripts/run_llm_simulations.py \
+  --plan outputs/query_plan/plan_top5_hotel.pkl \
+  --output outputs/responses/llm_responses_hotel.csv
+python3 scripts/evaluate_demand_prediction.py \
+  --sales outputs/products/sales_top5_hotel.csv \
+  --responses outputs/responses/llm_responses_hotel.csv \
+  --output-dir outputs/demand_prediction_hotel \
+  --exposure-n-values 300 400 500 600 \
+  --support-max 400
+python3 scripts/evaluate_pricing.py \
+  --sales outputs/products/sales_top5_hotel.csv \
+  --responses outputs/responses/llm_responses_hotel.csv \
+  --output-dir outputs/pricing_hotel \
+  --exposure-n-values 300 400 500 600
+python3 scripts/make_illustrative_use_case.py \
+  --split 0 \
+  --article-id 2001 \
+  --sales outputs/products/sales_top5_hotel.csv \
+  --responses outputs/responses/llm_responses_hotel.csv \
+  --product-info outputs/products/product_info_top5_hotel.csv \
+  --pricing-dir outputs/pricing_hotel \
+  --demand-prices 45000 49000 55000 58000 65000 75000
+```
+
+Hotel notes:
+
+- Prices are KRW and are passed through as-is; `PRICE_CURRENCY` in `demand_sim/config.py` controls the currency label inside LLM query prompts (`KRW` here, `USD` for the original H&M run).
+- `--exposure-n-values` must exceed the largest daily demand in the sales file, since the binomial models skip candidates below observed demand. Adjust alongside `--support-max` when real hotel demand data is substituted.
+- Hotel outputs use `*_hotel` file names and `outputs/personas_hotel/`, `outputs/demand_prediction_hotel/`, `outputs/pricing_hotel/` so the committed H&M paper outputs stay untouched.
+- Daily demand in `build_hotel_inputs.py` is seeded proxy data (seasonal peak around Dec 24, weekend effects, price elasticity). Replace with real or estimated reservation counts by writing the same schema: `date, article_id, offer_price, demand`.
+- SKU names and price grids in `data/hotel_skus.csv` reflect the researched 2025-26 season actuals: 'HEY FUTURE' ice rink pass 55,000/58,000-65,000 KRW, 'Winter on Ice' package (PRIZM 445,000 KRW anchor), The Deli festive cakes 80,000-120,000 KRW, plus the 2026-27 season calendar (rink 2026-12-04~2027-02-28). Sources: `data/hotel_data_sources.md`. The ice rink entrance-only ticket (15,000-20,000 KRW) is out of the 5-SKU grid and can be added as a 6th SKU.
+- Adjust `data/hotel_skus.csv` header dates and `HotelInputConfig` defaults together: the 2026 season default is start 2026-11-15, peak 2026-12-24, end 2026-12-31.

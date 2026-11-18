@@ -6,7 +6,13 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from demand_sim.config import DEFAULT_PERSONAS_DIR, DEFAULT_PRODUCTS_DIR, DEFAULT_QUERY_PLAN_DIR, DEFAULT_TOP_N_PRODUCTS
+from demand_sim.config import (
+    DEFAULT_PERSONAS_DIR,
+    DEFAULT_PRODUCTS_DIR,
+    DEFAULT_QUERY_PLAN_DIR,
+    DEFAULT_TOP_N_PRODUCTS,
+    PRICE_CURRENCY,
+)
 from demand_sim.preprocessing import build_query_plan
 
 
@@ -27,7 +33,15 @@ def main() -> None:
     sales = args.sales or DEFAULT_PRODUCTS_DIR / f"sales_top{args.top_n}_online.csv"
     product_info = args.product_info or DEFAULT_PRODUCTS_DIR / f"product_info_top{args.top_n}_online.csv"
     output = args.output or DEFAULT_QUERY_PLAN_DIR / f"plan_top{args.top_n}_online.pkl"
-    plan = build_query_plan(sales, product_info, args.persona_prompts, output, args.max_prices, args.max_personas)
+    plan = build_query_plan(
+        sales,
+        product_info,
+        args.persona_prompts,
+        output,
+        args.max_prices,
+        args.max_personas,
+        currency_label=PRICE_CURRENCY,
+    )
     print(f"Wrote query plan with {len(plan)} rows to {output}.")
 
 
