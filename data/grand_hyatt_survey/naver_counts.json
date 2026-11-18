@@ -1,0 +1,54 @@
+{
+  "collected_at": "2026-11-17T23:28:52",
+  "generated_with_mock": true,
+  "products": {
+    "GHS-25W-02": {
+      "product": {
+        "in_window": 59,
+        "total_estimate": 1392,
+        "capped": true
+      },
+      "hotel": {
+        "in_window": 59,
+        "total_estimate": 570,
+        "capped": false
+      }
+    },
+    "GHS-25W-03": {
+      "product": {
+        "in_window": 39,
+        "total_estimate": 840,
+        "capped": false
+      },
+      "hotel": {
+        "in_window": 39,
+        "total_estimate": 570,
+        "capped": false
+      }
+    },
+    "GHS-26S-02": {
+      "product": {
+        "in_window": 90,
+        "total_estimate": 703,
+        "capped": false
+      },
+      "hotel": {
+        "in_window": 90,
+        "total_estimate": 570,
+        "capped": false
+      }
+    },
+    "GHS-26S-03": {
+      "product": {
+        "in_window": 67,
+        "total_estimate": 1255,
+        "capped": true
+      },
+      "hotel": {
+        "in_window": 67,
+        "total_estimate": 570,
+        "capped": false
+      }
+    }
+  }
+}

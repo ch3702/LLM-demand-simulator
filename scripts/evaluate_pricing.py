@@ -88,7 +88,7 @@ def main() -> None:
     prompting_rows, persona_ids = build_prompting_design_rows(sales, probabilities)
     product_ids = np.array(sorted(prompting_rows["article_id"].unique()), dtype=int)
 
-    if args.fit_existing_fractions or args.regenerate_existing_synthetic:
+    if (args.fit_existing_fractions or args.regenerate_existing_synthetic) and existing_split_indices(args.output_dir):
         fit_existing_fractions(args, prompting_rows, persona_ids)
         print(f"Fit requested train fractions for existing pricing splits in {args.output_dir}.")
         return

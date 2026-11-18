@@ -1,0 +1,25 @@
+product_id,hotel,mentions,judged,subsidy,corporate,self_funded,has_post,has_comments,status
+GHS-25W-02,그랜드 하얏트 서울,,30,0,0,0,True,False,부분
+GHS-25W-03,그랜드 하얏트 서울,,30,0,0,0,True,False,부분
+GHS-26S-02,그랜드 하얏트 서울,,30,0,0,0,True,True,부분
+GHS-26S-03,그랜드 하얏트 서울,,30,0,0,0,False,False,부분
+GHS-24W-01,그랜드 하얏트 서울,,0,0,0,0,True,True,부분
+GHS-24W-02,그랜드 하얏트 서울,,0,0,0,0,True,True,부분
+GHS-24S-01,그랜드 하얏트 서울,,0,0,0,0,True,True,부분
+GHS-24S-02,그랜드 하얏트 서울,,0,0,0,0,True,True,부분
+SHL-25W-01,서울신라,,0,0,0,0,False,False,누락
+SHL-25W-02,서울신라,,30,0,0,0,True,True,부분
+SHL-25W-03,서울신라,,30,0,0,0,True,True,부분
+SHL-26S-01,서울신라,,0,0,0,0,False,False,누락
+SHL-26S-02,서울신라,,30,0,1,0,True,True,부분
+FSS-25W-01,포시즌스 호텔 서울,,0,0,0,0,False,False,누락
+FSS-25W-02,포시즌스 호텔 서울,,30,0,0,1,True,True,부분
+FSS-25W-03,포시즌스 호텔 서울,,0,0,0,0,False,False,누락
+FSS-25W-04,포시즌스 호텔 서울,,30,0,0,0,True,True,부분
+FSS-26S-01,포시즌스 호텔 서울,,0,0,0,0,False,False,누락
+FSS-26S-02,포시즌스 호텔 서울,,0,0,0,0,False,False,누락
+FSS-26S-03,포시즌스 호텔 서울,,30,0,0,0,True,True,부분
+WH-26W-01,그랜드 워커힐 서울,,0,0,0,0,False,False,누락
+WH-26W-02,그랜드 워커힐 서울,,0,0,0,0,False,False,누락
+FSS-26W-01,포시즌스 호텔 서울,,0,0,0,0,False,False,누락
+SHL-26W-01,호텔신라,,0,0,0,0,False,False,누락

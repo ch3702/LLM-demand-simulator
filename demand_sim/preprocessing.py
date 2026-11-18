@@ -228,6 +228,7 @@ def build_query_plan(
     output_path: Path,
     max_prices: int = 10,
     max_personas: int = 50,
+    currency_label: str = "USD",
 ) -> pd.DataFrame:
     """Build the product-persona LLM query plan."""
     output_path.parent.mkdir(parents=True, exist_ok=True)
@@ -266,7 +267,7 @@ def build_query_plan(
             + "\n\n"
             + str(row["product_block"]).strip()
             + "\n\n"
-            + "Offered prices (USD): "
+            + f"Offered prices ({currency_label}): "
             + json.dumps(sorted(float(price) for price in row["prices"]))
             + "\n"
         ),

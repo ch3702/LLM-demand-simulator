@@ -1,0 +1,198 @@
+{
+  "collected_at": "2026-11-17T23:30:31",
+  "generated_with_mock": true,
+  "products": {
+    "SHL-25W-01": {
+      "product": {
+        "in_window": 31,
+        "total_estimate": 703,
+        "capped": false
+      },
+      "hotel": {
+        "in_window": 31,
+        "total_estimate": 848,
+        "capped": false
+      }
+    },
+    "SHL-25W-02": {
+      "product": {
+        "in_window": 34,
+        "total_estimate": 1251,
+        "capped": true
+      },
+      "hotel": {
+        "in_window": 34,
+        "total_estimate": 848,
+        "capped": false
+      }
+    },
+    "SHL-25W-03": {
+      "product": {
+        "in_window": 31,
+        "total_estimate": 840,
+        "capped": false
+      },
+      "hotel": {
+        "in_window": 31,
+        "total_estimate": 848,
+        "capped": false
+      }
+    },
+    "SHL-26S-01": {
+      "product": {
+        "in_window": 47,
+        "total_estimate": 699,
+        "capped": false
+      },
+      "hotel": {
+        "in_window": 47,
+        "total_estimate": 848,
+        "capped": false
+      }
+    },
+    "SHL-26S-02": {
+      "product": {
+        "in_window": 76,
+        "total_estimate": 840,
+        "capped": false
+      },
+      "hotel": {
+        "in_window": 76,
+        "total_estimate": 848,
+        "capped": false
+      }
+    },
+    "FSS-25W-01": {
+      "product": {
+        "in_window": 67,
+        "total_estimate": 562,
+        "capped": false
+      },
+      "hotel": {
+        "in_window": 67,
+        "total_estimate": 570,
+        "capped": false
+      }
+    },
+    "FSS-25W-02": {
+      "product": {
+        "in_window": 37,
+        "total_estimate": 421,
+        "capped": false
+      },
+      "hotel": {
+        "in_window": 37,
+        "total_estimate": 570,
+        "capped": false
+      }
+    },
+    "FSS-25W-03": {
+      "product": {
+        "in_window": 38,
+        "total_estimate": 562,
+        "capped": false
+      },
+      "hotel": {
+        "in_window": 38,
+        "total_estimate": 570,
+        "capped": false
+      }
+    },
+    "FSS-25W-04": {
+      "product": {
+        "in_window": 38,
+        "total_estimate": 1110,
+        "capped": true
+      },
+      "hotel": {
+        "in_window": 38,
+        "total_estimate": 570,
+        "capped": false
+      }
+    },
+    "FSS-26S-01": {
+      "product": {
+        "in_window": 46,
+        "total_estimate": 562,
+        "capped": false
+      },
+      "hotel": {
+        "in_window": 46,
+        "total_estimate": 570,
+        "capped": false
+      }
+    },
+    "FSS-26S-02": {
+      "product": {
+        "in_window": 91,
+        "total_estimate": 1110,
+        "capped": true
+      },
+      "hotel": {
+        "in_window": 91,
+        "total_estimate": 570,
+        "capped": false
+      }
+    },
+    "FSS-26S-03": {
+      "product": {
+        "in_window": 66,
+        "total_estimate": 973,
+        "capped": false
+      },
+      "hotel": {
+        "in_window": 66,
+        "total_estimate": 570,
+        "capped": false
+      }
+    },
+    "WH-26W-01": {
+      "product": {
+        "in_window": 19,
+        "total_estimate": 1118,
+        "capped": true
+      },
+      "hotel": {
+        "in_window": 19,
+        "total_estimate": 570,
+        "capped": false
+      }
+    },
+    "WH-26W-02": {
+      "product": {
+        "in_window": 19,
+        "total_estimate": 566,
+        "capped": false
+      },
+      "hotel": {
+        "in_window": 19,
+        "total_estimate": 570,
+        "capped": false
+      }
+    },
+    "FSS-26W-01": {
+      "product": {
+        "in_window": 39,
+        "total_estimate": 840,
+        "capped": false
+      },
+      "hotel": {
+        "in_window": 39,
+        "total_estimate": 570,
+        "capped": false
+      }
+    },
+    "SHL-26W-01": {
+      "product": {
+        "in_window": 34,
+        "total_estimate": 1118,
+        "capped": true
+      },
+      "hotel": {
+        "in_window": 34,
+        "total_estimate": 848,
+        "capped": false
+      }
+    }
+  }
+}
