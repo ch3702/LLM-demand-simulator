@@ -30,12 +30,15 @@ from typing import Any
 
 from openpyxl import load_workbook
 
+from web_sheet_io import fill_mentions, fill_sheet4  # noqa: E402
+
 REPO_ROOT = Path(__file__).resolve().parents[1]
 UA = ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
       "(KHTML, like Gecko) Chrome/126.0 Safari/537.36")
 POST_PER_PAGE = 20
 MAX_PAGES = 30
 KAKAO_CAFE_URL = "https://dapi.kakao.com/v2/search/cafe.json"
+KAKAO_SEARCH_URL = "https://dapi.kakao.com/v2/search/blog.json"
 
 POST_URL_RE = re.compile(r"blog\.naver\.com/([A-Za-z0-9_]+)/(\d{9,12})")
 NEXT_PAGE_RE = re.compile(r"page=(\d+)")
@@ -138,18 +141,6 @@ def classify(sample: Sample, hotel: str) -> tuple[str, str]:
     return "표시 없음", f"'{hotel}' 관련 표시 문구 미발견"
 
 
-def kakao_cafe_search(query: str, start: date, end: date) -> dict[str, Any]:
-    key = os.environ.get("KAKAO_REST_API_KEY", "")
-    if not key:
-        return {"skipped": True, "reason": "KAKAO_REST_API_KEY 미설정"}
-    request = urllib.request.Request(
-        f"{KAKAO_CAFE_URL}?query={urllib.parse.quote(query)}&page=1&size=10",
-        headers={"Authorization": f"KakaoAK {key}"},
-    )
-    with urllib.request.urlopen(request, timeout=30) as response:
-        return json.loads(response.read().decode("utf-8"))
-
-
 def read_registry(path: Path) -> list[dict[str, str]]:
     lines = [line for line in path.read_text(encoding="utf-8").splitlines()
              if line.strip() and not line.startswith("#")]
@@ -179,60 +170,7 @@ def collect_product(row: dict[str, str], sample_per_product: int) -> dict[str, A
     return {
         "product_id": row["product_id"], "hotel": hotel, "query": query,
         "window": (start, end), "total": total, "samples": samples,
-        "kakao": kakao_cafe_search(query, start, end),
     }
-
-
-def fill_sheet4(workbook_path: Path, results: list[dict[str, Any]], max_samples: int) -> int:
-    workbook = load_workbook(workbook_path)
-    sheet = workbook["C_협찬판정"]
-    headers = {str(sheet.cell(1, col).value).strip(): col for col in range(1, sheet.max_column + 1) if sheet.cell(1, col).value}
-    existing = {str(sheet.cell(row, headers["글 링크"]).value) for row in range(3, sheet.max_row + 1)}
-    added = 0
-    for result in results:
-        window = result["window"]
-        section_span = (window[1] - window[0]).days / 3.0
-        for sample in result["samples"][:max_samples]:
-            if sample.url in existing or not sample.posted:
-                continue
-            posted = datetime.fromisoformat(sample.posted).date() if sample.posted else window[0]
-            section = min(2, int((posted - window[0]).days / max(section_span, 1)))
-            row = sheet.max_row + 1
-            sheet.cell(row, headers["상품ID"]).value = result["product_id"]
-            sheet.cell(row, headers["호텔"]).value = result["hotel"]
-            sheet.cell(row, headers["구간"]).value = section + 1
-            sheet.cell(row, headers["작성일"]).value = sample.posted
-            sheet.cell(row, headers["글 링크"]).value = sample.url
-            sheet.cell(row, headers["분류"]).value = sample.classification
-            sheet.cell(row, headers["근거(제목·첫 화면 문구)"]).value = f"[HTML초안] 제목: {sample.title[:80]}"
-            existing.add(sample.url)
-            added += 1
-    workbook.save(workbook_path)
-    workbook.close()
-    return added
-
-
-def fill_mentions(workbook_path: Path, results: list[dict[str, Any]]) -> int:
-    """시트3 언급량이 비어 있거나 [API 집계 필요]인 칸만 순회 수집 건수로 채운다."""
-    workbook = load_workbook(workbook_path)
-    sheet = workbook["C_블로그"]
-    headers = {str(sheet.cell(1, col).value).strip(): col for col in range(1, sheet.max_column + 1) if sheet.cell(1, col).value}
-    filled = 0
-    for row in range(3, sheet.max_row + 1):
-        pid = str(sheet.cell(row, headers["상품ID"]).value)
-        result = next((item for item in results if item["product_id"] == pid), None)
-        if result is None:
-            continue
-        cell = sheet.cell(row, headers["상품 언급량"])
-        if cell.value in (None, "") or "API" in str(cell.value):
-            cell.value = result["total"]
-            stamp = f"[HTML 순회수집 {datetime.now():%Y-%m-%d}] {result['total']}건 (20건/페이지 순회정의, API와 정의 상이)"
-            note = sheet.cell(row, headers["비고"])
-            note.value = f"{note.value + ' · ' if note.value else ''}{stamp}"
-            filled += 1
-    workbook.save(workbook_path)
-    workbook.close()
-    return filled
 
 
 def main() -> int:
@@ -243,20 +181,28 @@ def main() -> int:
     parser.add_argument("--sample-per-product", type=int, default=30)
     parser.add_argument("--write-sheets", action="store_true", help="시트4 협찬판정 초안행 기입")
     parser.add_argument("--write-mentions", action="store_true", help="시트3 언급량 기입(풀 순회 권장)")
+    parser.add_argument("--kakao-sample", type=int, default=30, help="카카오 블로그 표본 수집 행(0=미실행)")
     args = parser.parse_args()
     rows = [row for row in read_registry(args.registry)
             if any(row["product_id"].startswith(prefix) for prefix in args.only.split(","))]
     if not rows:
         raise SystemExit(f"대상 행이 없습니다: {args.only}")
+    if args.kakao_sample:
+        from kakao_collect import kakao_fill_sheet4
+
+        def _text_classify(text: str, hotel: str) -> tuple[str, str]:
+            return classify(Sample(url="", title=text[:80], posted="", body=text[:600], tags="", classification="", evidence=""), hotel)
+
+        summary = kakao_fill_sheet4(args.workbook, rows, _text_classify, target_per_product=max(args.kakao_sample, 1))
+        for pid, added, docs_total in summary:
+            print(f"{pid} [카카오] +{added}행 (다음블로그 검색 문서 {docs_total:,}건 기준)")
+        return 0
     results = [collect_product(row, args.sample_per_product) for row in rows]
     for result in results:
         labels = {}
         for sample in result["samples"]:
             labels[sample.classification] = labels.get(sample.classification, 0) + 1
-        kakao = result["kakao"]
-        kakao_note = "미설정→스킵" if kakao.get("skipped") else f"다음카페 total {kakao.get('meta', {}).get('total_count')}"
-        print(f"{result['product_id']} '{result['query']}' 순회 {result['total']}건 · 표본 {len(result['samples'])}편 "
-            f"· {labels} · 카카오:{kakao_note}")
+        print(f"{result['product_id']} '{result['query']}' 순회 {result['total']}건 · 표본 {len(result['samples'])}편 · {labels}")
     judge = fill_sheet4(args.workbook, results, args.sample_per_product) if args.write_sheets else 0
     mentions = fill_mentions(args.workbook, results) if args.write_mentions else 0
     if args.write_sheets or args.write_mentions:

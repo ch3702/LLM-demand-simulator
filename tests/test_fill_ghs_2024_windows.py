@@ -91,5 +91,5 @@ class TestWindow:
         try:
             fill_workbook(path)
             raise AssertionError("WindowError가 발생해야 합니다")
-        except WindowError:
-            pass
+        except WindowError as error:
+            assert "B_상품" in str(error)
