@@ -93,6 +93,9 @@ def walk_blog_posts(query: str, start: date, end: date, max_posts: int = 30) -> 
             f"&sm=tab_pge&ssc=tab.ur.all&start={(page - 1) * POST_PER_PAGE + 1}"
         )
         page_html = _http_get(page_url)
+        if len(page_html) < 400_000:
+            print(f"  [완화 감지] page {page} 크기 {len(page_html):,}B — 여기까지만 수집")
+            break
         found = []
         for user, post in POST_URL_RE.findall(page_html):
             if (user, post) not in seen:
@@ -102,7 +105,7 @@ def walk_blog_posts(query: str, start: date, end: date, max_posts: int = 30) -> 
         fresh = len(found) > 0
         if page * POST_PER_PAGE >= max_posts or len(found) == 0 or not fresh:
             break
-        time.sleep(0.7)
+        time.sleep(1.2)
     return len(urls), urls[:max_posts]
 
 
@@ -238,7 +241,8 @@ def main() -> int:
     parser.add_argument("--workbook", type=Path, default=Path("/Users/robotjang/Downloads/호텔조사_정리_GHS2024_v1.xlsx"))
     parser.add_argument("--only", default="GHS-24", help="쉼표 구분 상품ID 접두어 필터")
     parser.add_argument("--sample-per-product", type=int, default=30)
-    parser.add_argument("--write-sheets", action="store_true", help="사본 워크북 시트3·4에 실제 기입")
+    parser.add_argument("--write-sheets", action="store_true", help="시트4 협찬판정 초안행 기입")
+    parser.add_argument("--write-mentions", action="store_true", help="시트3 언급량 기입(풀 순회 권장)")
     args = parser.parse_args()
     rows = [row for row in read_registry(args.registry)
             if any(row["product_id"].startswith(prefix) for prefix in args.only.split(","))]
@@ -253,9 +257,9 @@ def main() -> int:
         kakao_note = "미설정→스킵" if kakao.get("skipped") else f"다음카페 total {kakao.get('meta', {}).get('total_count')}"
         print(f"{result['product_id']} '{result['query']}' 순회 {result['total']}건 · 표본 {len(result['samples'])}편 "
             f"· {labels} · 카카오:{kakao_note}")
-    if args.write_sheets:
-        judge = fill_sheet4(args.workbook, results, args.sample_per_product)
-        mentions = fill_mentions(args.workbook, results)
+    judge = fill_sheet4(args.workbook, results, args.sample_per_product) if args.write_sheets else 0
+    mentions = fill_mentions(args.workbook, results) if args.write_mentions else 0
+    if args.write_sheets or args.write_mentions:
         print(f"기입 완료 → 시트4 {judge}행 · 시트3 언급량 {mentions}칸")
     return 0
 
