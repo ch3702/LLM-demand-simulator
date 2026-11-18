@@ -1,0 +1,255 @@
+{
+ "purpose": "4.2절 페르소나 보강 — 표 2 비교군 직접 서술 작성자 중 현재 패널(28명) 누락분",
+ "current_panel_size": 28,
+ "target_additions": 16,
+ "target_types": [
+  "커플·기념일",
+  "가족·친족",
+  "친구·모임",
+  "미식 방문"
+ ],
+ "hotel_allocation_note": "표2 원본(서울신라 10·GHD 8·포시즌스 5) 기준 비례 배분 — 원본 명단 확보 시 교정",
+ "blocking": "표 2 원본 파일 경로 필요 (작성자 명단·직접 서술 원문)",
+ "slots": [
+  {
+   "slot_id": "P007",
+   "hotel": "서울신라",
+   "target_type": "커플·기념일",
+   "source_author_id": null,
+   "status": "표2 명단 대기",
+   "required_fields": [
+    "연령대",
+    "동반유형",
+    "지출수준",
+    "관심카테고리",
+    "persona_prompt",
+    "방문계기"
+   ]
+  },
+  {
+   "slot_id": "P008",
+   "hotel": "서울신라",
+   "target_type": "가족·친족",
+   "source_author_id": null,
+   "status": "표2 명단 대기",
+   "required_fields": [
+    "연령대",
+    "동반유형",
+    "지출수준",
+    "관심카테고리",
+    "persona_prompt",
+    "방문계기"
+   ]
+  },
+  {
+   "slot_id": "P009",
+   "hotel": "서울신라",
+   "target_type": "친구·모임",
+   "source_author_id": null,
+   "status": "표2 명단 대기",
+   "required_fields": [
+    "연령대",
+    "동반유형",
+    "지출수준",
+    "관심카테고리",
+    "persona_prompt",
+    "방문계기"
+   ]
+  },
+  {
+   "slot_id": "P010",
+   "hotel": "서울신라",
+   "target_type": "미식 방문",
+   "source_author_id": null,
+   "status": "표2 명단 대기",
+   "required_fields": [
+    "연령대",
+    "동반유형",
+    "지출수준",
+    "관심카테고리",
+    "persona_prompt",
+    "방문계기"
+   ]
+  },
+  {
+   "slot_id": "P011",
+   "hotel": "서울신라",
+   "target_type": "커플·기념일",
+   "source_author_id": null,
+   "status": "표2 명단 대기",
+   "required_fields": [
+    "연령대",
+    "동반유형",
+    "지출수준",
+    "관심카테고리",
+    "persona_prompt",
+    "방문계기"
+   ]
+  },
+  {
+   "slot_id": "P012",
+   "hotel": "서울신라",
+   "target_type": "가족·친족",
+   "source_author_id": null,
+   "status": "표2 명단 대기",
+   "required_fields": [
+    "연령대",
+    "동반유형",
+    "지출수준",
+    "관심카테고리",
+    "persona_prompt",
+    "방문계기"
+   ]
+  },
+  {
+   "slot_id": "P013",
+   "hotel": "서울신라",
+   "target_type": "친구·모임",
+   "source_author_id": null,
+   "status": "표2 명단 대기",
+   "required_fields": [
+    "연령대",
+    "동반유형",
+    "지출수준",
+    "관심카테고리",
+    "persona_prompt",
+    "방문계기"
+   ]
+  },
+  {
+   "slot_id": "P014",
+   "hotel": "그랜드 하얏트 서울",
+   "target_type": "미식 방문",
+   "source_author_id": null,
+   "status": "표2 명단 대기",
+   "required_fields": [
+    "연령대",
+    "동반유형",
+    "지출수준",
+    "관심카테고리",
+    "persona_prompt",
+    "방문계기"
+   ]
+  },
+  {
+   "slot_id": "P015",
+   "hotel": "그랜드 하얏트 서울",
+   "target_type": "커플·기념일",
+   "source_author_id": null,
+   "status": "표2 명단 대기",
+   "required_fields": [
+    "연령대",
+    "동반유형",
+    "지출수준",
+    "관심카테고리",
+    "persona_prompt",
+    "방문계기"
+   ]
+  },
+  {
+   "slot_id": "P016",
+   "hotel": "그랜드 하얏트 서울",
+   "target_type": "가족·친족",
+   "source_author_id": null,
+   "status": "표2 명단 대기",
+   "required_fields": [
+    "연령대",
+    "동반유형",
+    "지출수준",
+    "관심카테고리",
+    "persona_prompt",
+    "방문계기"
+   ]
+  },
+  {
+   "slot_id": "P017",
+   "hotel": "그랜드 하얏트 서울",
+   "target_type": "친구·모임",
+   "source_author_id": null,
+   "status": "표2 명단 대기",
+   "required_fields": [
+    "연령대",
+    "동반유형",
+    "지출수준",
+    "관심카테고리",
+    "persona_prompt",
+    "방문계기"
+   ]
+  },
+  {
+   "slot_id": "P018",
+   "hotel": "그랜드 하얏트 서울",
+   "target_type": "미식 방문",
+   "source_author_id": null,
+   "status": "표2 명단 대기",
+   "required_fields": [
+    "연령대",
+    "동반유형",
+    "지출수준",
+    "관심카테고리",
+    "persona_prompt",
+    "방문계기"
+   ]
+  },
+  {
+   "slot_id": "P019",
+   "hotel": "포시즌스 서울",
+   "target_type": "커플·기념일",
+   "source_author_id": null,
+   "status": "표2 명단 대기",
+   "required_fields": [
+    "연령대",
+    "동반유형",
+    "지출수준",
+    "관심카테고리",
+    "persona_prompt",
+    "방문계기"
+   ]
+  },
+  {
+   "slot_id": "P020",
+   "hotel": "포시즌스 서울",
+   "target_type": "가족·친족",
+   "source_author_id": null,
+   "status": "표2 명단 대기",
+   "required_fields": [
+    "연령대",
+    "동반유형",
+    "지출수준",
+    "관심카테고리",
+    "persona_prompt",
+    "방문계기"
+   ]
+  },
+  {
+   "slot_id": "P021",
+   "hotel": "포시즌스 서울",
+   "target_type": "친구·모임",
+   "source_author_id": null,
+   "status": "표2 명단 대기",
+   "required_fields": [
+    "연령대",
+    "동반유형",
+    "지출수준",
+    "관심카테고리",
+    "persona_prompt",
+    "방문계기"
+   ]
+  },
+  {
+   "slot_id": "P022",
+   "hotel": "포시즌스 서울",
+   "target_type": "미식 방문",
+   "source_author_id": null,
+   "status": "표2 명단 대기",
+   "required_fields": [
+    "연령대",
+    "동반유형",
+    "지출수준",
+    "관심카테고리",
+    "persona_prompt",
+    "방문계기"
+   ]
+  }
+ ]
+}
