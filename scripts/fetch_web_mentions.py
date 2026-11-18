@@ -182,6 +182,7 @@ def main() -> int:
     parser.add_argument("--write-sheets", action="store_true", help="시트4 협찬판정 초안행 기입")
     parser.add_argument("--write-mentions", action="store_true", help="시트3 언급량 기입(풀 순회 권장)")
     parser.add_argument("--kakao-sample", type=int, default=30, help="카카오 블로그 표본 수집 행(0=미실행)")
+    parser.add_argument("--kakao-pages", type=int, default=8, help="카카오 스캔 페이지 깊이(1페이지=50문서)")
     args = parser.parse_args()
     rows = [row for row in read_registry(args.registry)
             if any(row["product_id"].startswith(prefix) for prefix in args.only.split(","))]
@@ -193,7 +194,8 @@ def main() -> int:
         def _text_classify(text: str, hotel: str) -> tuple[str, str]:
             return classify(Sample(url="", title=text[:80], posted="", body=text[:600], tags="", classification="", evidence=""), hotel)
 
-        summary = kakao_fill_sheet4(args.workbook, rows, _text_classify, target_per_product=max(args.kakao_sample, 1))
+        from kakao_collect import kakao_fill_sheet4 as _fill
+        summary = _fill(args.workbook, rows, _text_classify, target_per_product=max(args.kakao_sample, 1), max_pages=args.kakao_pages)
         for pid, added, docs_total in summary:
             print(f"{pid} [카카오] +{added}행 (다음블로그 검색 문서 {docs_total:,}건 기준)")
         return 0

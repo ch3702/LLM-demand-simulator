@@ -78,6 +78,7 @@ def kakao_blog_samples(
 
 def kakao_fill_sheet4(
     workbook_path: Path, rows: list[dict[str, str]], sample_classify: Any, target_per_product: int = 30,
+    max_pages: int = 8,
 ) -> list[tuple[str, int, int]]:
     """카카오 블로그 표본으로 시트4를 목표 편수까지 채운다 (네이버 요청 0회).
 
@@ -102,6 +103,7 @@ def kakao_fill_sheet4(
         end = date.fromisoformat(row["window_end"])
         docs_total, docs, _scanned = kakao_blog_samples(
             row["query"], start, end, target=max(target_per_product - state[pid]["rows"], 0),
+            max_pages=max_pages,
         )
         added = 0
         section_span = max((end - start).days / 3.0, 1)
